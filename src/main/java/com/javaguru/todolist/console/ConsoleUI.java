@@ -1,64 +1,37 @@
 package com.javaguru.todolist.console;
 
-import com.javaguru.todolist.domain.Task;
-import com.javaguru.todolist.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class ConsoleUI {
 
-    private final TaskService taskService;
+    private final List<Action> actions;
 
-    public ConsoleUI(TaskService taskService) {
-        this.taskService = taskService;
+    @Autowired
+    public ConsoleUI(@Qualifier("actions") List<Action> actions) {
+        this.actions = actions;
     }
 
-    public void execute() {
+    public void startConsoleUI() {
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             try {
-                System.out.println("1. Create task");
-                System.out.println("2. Find task by id");
-                System.out.println("3. Exit");
-                int userInput = scanner.nextInt();
-                switch (userInput) {
-                    case 1:
-                        createTask();
-                        break;
-                    case 2:
-                        findTask();
-                        break;
-                    case 3:
-                        return;
+                Scanner scanner = new Scanner(System.in);
+                for (int i = 0; i < actions.size(); i++) {
+                    System.out.println(i + ". " + actions.get(i));
                 }
+                int userInput = scanner.nextInt();
+                actions.get(userInput).execute();
             } catch (Exception e) {
-                System.out.println("Error! Please try again.");
+                System.out.println("Error! Please try again");
                 e.printStackTrace();
             }
         }
     }
 
-    private void createTask() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter task name: ");
-        String name = scanner.nextLine();
-        System.out.println("Enter task description: ");
-        String description = scanner.nextLine();
-
-        Task task = new Task();
-        task.setName(name);
-        task.setDescription(description);
-
-        Long id = taskService.createTask(task);
-        System.out.println("Result: " + id);
-    }
-
-    private void findTask() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter task id: ");
-        Long id = scanner.nextLong();
-        Task task = taskService.findTaskById(id);
-        System.out.println(task);
-    }
 
 }
