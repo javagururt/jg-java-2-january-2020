@@ -34,7 +34,7 @@ public class TaskServiceTest {
     private TaskService victim;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         victim = new TaskService(repository, validationService);
     }
 
@@ -48,7 +48,7 @@ public class TaskServiceTest {
         verify(validationService).validate(taskCaptor.capture());
         Task captorResult = taskCaptor.getValue();
 
-        assertThat(captorResult).isEqualTo(task);
+        assertThat(captorResult).isEqualTo(task());
         assertThat(task.getId()).isEqualTo(result);
     }
 
