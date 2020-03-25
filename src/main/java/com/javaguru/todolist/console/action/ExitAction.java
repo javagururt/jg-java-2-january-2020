@@ -1,9 +1,11 @@
-package com.javaguru.todolist.console;
+package com.javaguru.todolist.console.action;
 
 import org.springframework.stereotype.Component;
 
 @Component
-class ExitAction implements Action {
+public class ExitAction implements Action {
+
+    private static final String ACTION_NAME = "Exit";
 
     @Override
     public void execute() {
@@ -12,6 +14,6 @@ class ExitAction implements Action {
 
     @Override
     public String toString() {
-        return "Exit";
+        return ACTION_NAME;
     }
 }

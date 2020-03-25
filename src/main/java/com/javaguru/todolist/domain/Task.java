@@ -2,10 +2,24 @@ package com.javaguru.todolist.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tasks")
 public class Task {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
 
     public Long getId() {
@@ -44,7 +58,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(id, name, description);
     }
 

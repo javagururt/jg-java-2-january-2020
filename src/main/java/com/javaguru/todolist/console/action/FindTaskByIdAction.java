@@ -1,8 +1,8 @@
-package com.javaguru.todolist.console;
+package com.javaguru.todolist.console.action;
 
 import com.javaguru.todolist.domain.Task;
 import com.javaguru.todolist.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
@@ -10,9 +10,10 @@ import java.util.Scanner;
 @Component
 public class FindTaskByIdAction implements Action {
 
+    private static final String ACTION_NAME = "Find by ID";
+
     private final TaskService taskService;
 
-    @Autowired
     public FindTaskByIdAction(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -20,14 +21,14 @@ public class FindTaskByIdAction implements Action {
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter task id: ");
+        System.out.println("Enter id: ");
         Long id = scanner.nextLong();
-        Task task = taskService.findTaskById(id);
-        System.out.println(task);
+        Task response = taskService.findTaskById(id);
+        System.out.println("Response: " + response);
     }
 
     @Override
     public String toString() {
-        return "Find Task By Id";
+        return ACTION_NAME;
     }
 }

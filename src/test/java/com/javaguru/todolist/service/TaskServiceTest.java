@@ -1,8 +1,9 @@
 package com.javaguru.todolist.service;
 
 import com.javaguru.todolist.domain.Task;
-import com.javaguru.todolist.repository.TaskInMemoryRepository;
+import com.javaguru.todolist.repository.TaskRepository;
 import com.javaguru.todolist.service.validation.TaskValidationService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class TaskServiceTest {
 
     @Mock
-    private TaskInMemoryRepository repository;
+    private TaskRepository repository;
 
     @Mock
     private TaskValidationService validationService;
@@ -35,26 +36,26 @@ public class TaskServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        victim = new TaskService(repository, validationService);
+        victim = new DefaultTaskService(repository, validationService);
     }
 
     @Test
     public void shouldCreateTask() {
         Task task = task();
-        when(repository.save(task)).thenReturn(task);
+        when(repository.save(task)).thenReturn(task());
 
-        Long result = victim.createTask(task);
+        Task result = victim.createTask(task);
 
         verify(validationService).validate(taskCaptor.capture());
         Task captorResult = taskCaptor.getValue();
 
-        assertThat(captorResult).isEqualTo(task());
-        assertThat(task.getId()).isEqualTo(result);
+        assertThat(captorResult).isEqualTo(task);
+        assertThat(task).isEqualTo(result);
     }
 
     @Test
     public void shouldFindTaskById() {
-        when(repository.findTaskById(1001L)).thenReturn(Optional.ofNullable(task()));
+        when(repository.findTaskById(1001L)).thenReturn(Optional.of(task()));
 
         Task result = victim.findTaskById(1001L);
 

@@ -1,6 +1,7 @@
 package com.javaguru.todolist.service.validation;
 
 import com.javaguru.todolist.domain.Task;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

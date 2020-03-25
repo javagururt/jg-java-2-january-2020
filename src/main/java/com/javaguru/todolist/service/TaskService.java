@@ -1,32 +1,18 @@
 package com.javaguru.todolist.service;
 
 import com.javaguru.todolist.domain.Task;
-import com.javaguru.todolist.repository.TaskRepository;
-import com.javaguru.todolist.service.validation.TaskValidationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class TaskService {
+import java.util.List;
 
-    private final TaskRepository repository;
-    private final TaskValidationService validationService;
+public interface TaskService {
 
-    @Autowired
-    public TaskService(TaskRepository repository,
-                       TaskValidationService validationService) {
-        this.repository = repository;
-        this.validationService = validationService;
-    }
+    Task createTask(Task task);
 
-    public Long createTask(Task task) {
-        validationService.validate(task);
-        Task createdTask = repository.save(task);
-        return createdTask.getId();
-    }
+    Task findTaskById(Long id);
 
-    public Task findTaskById(Long id) {
-        return repository.findTaskById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Task not found, id: " + id));
-    }
+    void deleteTaskById(Long id);
+
+    List<Task> findAll();
+
+    void update(Long id, Task task);
 }
