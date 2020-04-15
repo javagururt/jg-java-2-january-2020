@@ -4,6 +4,7 @@ import com.javaguru.todolist.domain.Task;
 import com.javaguru.todolist.service.TaskService;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Scanner;
 

@@ -18,6 +18,8 @@ class ConsoleUIConfiguration {
     private final Action deleteTaskByIdAction;
     private final Action findAllTasksAction;
     private final Action editTaskAction;
+    private final Action createUserAction;
+    private final Action assignTaskToUserAction;
 
     @Autowired
     public ConsoleUIConfiguration(Action createTaskAction,
@@ -25,13 +27,17 @@ class ConsoleUIConfiguration {
                                   Action exitAction,
                                   Action deleteTaskByIdAction,
                                   Action findAllTasksAction,
-                                  Action editTaskAction) {
+                                  Action editTaskAction,
+                                  Action createUserAction,
+                                  Action assignTaskToUserAction) {
         this.createTaskAction = createTaskAction;
         this.findTaskByIdAction = findTaskByIdAction;
         this.exitAction = exitAction;
         this.deleteTaskByIdAction = deleteTaskByIdAction;
         this.findAllTasksAction = findAllTasksAction;
         this.editTaskAction = editTaskAction;
+        this.createUserAction = createUserAction;
+        this.assignTaskToUserAction = assignTaskToUserAction;
     }
 
 
@@ -43,6 +49,8 @@ class ConsoleUIConfiguration {
         actions.add(findTaskByIdAction);
         actions.add(deleteTaskByIdAction);
         actions.add(findAllTasksAction);
+        actions.add(createUserAction);
+        actions.add(assignTaskToUserAction);
         actions.add(exitAction);
         return new ConsoleUI(actions);
     }

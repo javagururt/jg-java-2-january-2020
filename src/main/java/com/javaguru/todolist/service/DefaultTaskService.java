@@ -54,6 +54,7 @@ public class DefaultTaskService implements TaskService {
 
         task.setName(newTask.getName());
         task.setDescription(newTask.getDescription());
+        task.setUser(newTask.getUser());
 
         repository.update(task);
     }
